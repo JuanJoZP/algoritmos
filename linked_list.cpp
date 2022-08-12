@@ -1,3 +1,4 @@
+
 #include<iostream>
 #include <math.h> 
 #include <stdexcept>
@@ -226,6 +227,17 @@ public:
         }
     }
     
+    Lista reverse() {
+        Lista r = Lista();
+        Nodo *n = ptr;
+        do {
+            r.insert(n->getDato(), 0);
+            n = n->getNext();
+        } while (n->getNext()!=NULL);
+        
+        return r;
+    }
+    
     
     void print(){
         if(size == 0){
@@ -256,12 +268,14 @@ int main()
    l.print();
    
    // INSERT
-   l.insert(new Point(10,10), 0);
-   l.print();
+   //l.insert(new Point(10,10), 0);
+   //l.print();
    
    // REMOVE
-   l.remove_nodo(2);
-   l.print();
+   //l.remove_nodo(2);
+   //l.print();
+   
+   l.reverse().print(); // error loco
    
    
    return 0;
