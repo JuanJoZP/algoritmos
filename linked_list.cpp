@@ -1,4 +1,3 @@
-
 #include<iostream>
 #include <math.h> 
 #include <stdexcept>
@@ -157,6 +156,10 @@ public:
         return size;
     }
     
+    void setPtr(Nodo* ptrr) {
+        ptr = ptrr;
+    }
+    
      Nodo* getNodo(int pos) {
         if(size == 0) {
             throw invalid_argument("La lista no tienen nodos");
@@ -227,21 +230,45 @@ public:
         }
     }
     
-    Lista reverse() {
+    /*Lista reverse() {
         Lista r = Lista();
-        Nodo *n = ptr;
-        do {
-            r.insert(n->getDato(), 0);
-            n = n->getNext();
-        } while (n->getNext()!=NULL);
+        Nodo* t = ptr;
+        do{
+            t = t->getNext();
+            Nodo* n = t;
+            if(r.getSize() == 0) {
+                n->setNext();
+                r.setPtr(n);
+            } else {
+                Nodo* ri = r.getNodo(0);
+                n->setNext(ri);
+                r.setPtr(n);
+            }
+            size++;
+        }while(t->getNext() != NULL);
         
         return r;
-    }
+    }*/
     
+    void reverse(){
+        for(int i = 1;i<size;i++){
+            Nodo* l = getNodo(i-1);
+            //cout << l->getDato()->getX();
+            cout<< i;
+            Nodo* n = l->getNext();
+            ptr = n;
+           //Nodo* r = ptr;
+            l->setNext(n->getNext());
+            n->setNext(l);
+            print();
+            
+            // usar insert cada VEZ EN PUESTO +1
+        }
+    }
     
     void print(){
         if(size == 0){
-            cout<<"La lista está vacía"<<endl;
+            cout<<"La lista está vacía" <<endl;
         }else{
             Nodo* t = ptr;
             do{
@@ -274,9 +301,10 @@ int main()
    // REMOVE
    //l.remove_nodo(2);
    //l.print();
-   
-   l.reverse().print(); // error loco
-   
+   //Lista c = Lista();
+   l.reverse(); // error loco
+   l.print();
+   //c.print();
    
    return 0;
 }
