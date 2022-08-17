@@ -196,14 +196,6 @@ public:
         }
     }
     
-    /*void remove_next(Nodo* d) {
-    // esta no es iterativa
-        Nodo* n = d->getNext();
-        d->setNext(n->getNext());
-        delete n;
-        size--;
-    }*/
-    
     void remove_nodo(int pos){
         if (pos < 0 || pos >= size) {
             throw invalid_argument("No hay ningun nodo que eliminar en esa posicion");
@@ -230,6 +222,7 @@ public:
         }
     }
     
+    // FALTA REVERSE
     /*Lista reverse() {
         Lista r = Lista();
         Nodo* t = ptr;
@@ -248,7 +241,7 @@ public:
         }while(t->getNext() != NULL);
         
         return r;
-    }*/
+    }
     
     void reverse(){
         for(int i = 1;i<size;i++){
@@ -264,7 +257,7 @@ public:
             
             // usar insert cada VEZ EN PUESTO +1
         }
-    }
+    }*/
     
     void print(){
         if(size == 0){
@@ -301,9 +294,11 @@ int main()
    // REMOVE
    //l.remove_nodo(2);
    //l.print();
+	
+   // FALTA REVERSE
    //Lista c = Lista();
-   l.reverse(); // error loco
-   l.print();
+   //l.reverse(); // error loco
+   //l.print();
    //c.print();
    
    return 0;
