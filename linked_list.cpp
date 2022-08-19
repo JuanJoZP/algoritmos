@@ -126,7 +126,7 @@ public:
         size = 0;
     }
     
-    ~Lista(){
+    /*~Lista(){
         Nodo* t = ptr;
         Nodo * n;
         while(t->getNext() != NULL){
@@ -134,7 +134,7 @@ public:
             t = t->getNext();
             delete n;
         }
-    }
+    }*/
     
     void push_back(Point* d){
         
@@ -154,6 +154,10 @@ public:
     
     int getSize(){
         return size;
+    }
+    
+    Nodo* getPtr() {
+        return ptr;
     }
     
     void setPtr(Nodo* ptrr) {
@@ -222,42 +226,52 @@ public:
         }
     }
     
-    // FALTA REVERSE
-    /*Lista reverse() {
-        Lista r = Lista();
-        Nodo* t = ptr;
-        do{
-            t = t->getNext();
-            Nodo* n = t;
-            if(r.getSize() == 0) {
-                n->setNext();
-                r.setPtr(n);
+    void reverse() {
+        for(int i = 1; i<size; i++) {
+            Nodo* l = getNodo(i-1);
+            Nodo* obj = l->getNext();
+            if(obj->getNext() == NULL) {
+                obj->setNext(ptr);
+                ptr = obj;
+                l->setNext();
             } else {
-                Nodo* ri = r.getNodo(0);
-                n->setNext(ri);
-                r.setPtr(n);
+                Nodo* r = obj->getNext();
+                obj->setNext(ptr);
+                ptr = obj;
+                l->setNext(r);
             }
-            size++;
-        }while(t->getNext() != NULL);
-        
-        return r;
+        }
     }
     
-    void reverse(){
-        for(int i = 1;i<size;i++){
-            Nodo* l = getNodo(i-1);
-            //cout << l->getDato()->getX();
-            cout<< i;
-            Nodo* n = l->getNext();
-            ptr = n;
-           //Nodo* r = ptr;
-            l->setNext(n->getNext());
-            n->setNext(l);
-            print();
-            
-            // usar insert cada VEZ EN PUESTO +1
+    static Lista fusion(Lista l1, Lista l2, bool inter) {
+        Lista l3 = Lista();
+        
+        if(inter) {
+            Nodo* n1 = l1.getPtr();
+            Nodo* n2 = l2.getPtr();
+            for(int i = 0; i < l1.getSize(); i++) {
+               l3.push_back(n1->getDato());
+               l3.push_back(n2->getDato());
+               n1 = n1->getNext();
+               n2 = n2->getNext();
+           }
+        } else {
+            Nodo* n1 = l1.getPtr();
+            for(int i = 0; i < l1.getSize(); i++) {
+               l3.push_back(n1->getDato());
+               n1 = n1->getNext();
+           }
+           
+           Nodo* n2 = l2.getPtr();
+           for(int i = 0; i < l2.getSize(); i++) {
+               l3.push_back(n2->getDato());
+               n2 = n2->getNext();
+           }
         }
-    }*/
+        
+        
+        return l3;
+    }
     
     void print(){
         if(size == 0){
@@ -274,6 +288,39 @@ public:
     }
     
 };
+
+
+int main()
+{
+   
+   Lista l1 = Lista();
+   Lista l2 = Lista();
+   
+   // PUSH BACK
+   for(int i = 1; i<4; i++){
+       l1.push_back(new Point(i,i));
+       l2.push_back(new Point(i+3,i+3));
+   }
+   l1.print();
+   l2.print();
+   
+   Lista l3 = Lista::fusion(l1,l2,1);
+   l3.print();
+   
+   // INSERT
+   //l.insert(new Point(10,10), 0);
+   //l.print();
+   
+   // REMOVE
+   //l.remove_nodo(2);
+   //l.print();
+	
+   // REVERSE
+   //l.reverse();
+   //l.print();
+   
+   return 0;
+}
 
 
 int main()
