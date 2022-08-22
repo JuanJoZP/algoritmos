@@ -321,32 +321,3 @@ int main()
    
    return 0;
 }
-
-
-int main()
-{
-   
-   Lista l = Lista();
-   
-   // PUSH BACK
-   for(int i = 1; i<11; i++){
-       l.push_back(new Point(i,i));
-   }
-   l.print();
-   
-   // INSERT
-   //l.insert(new Point(10,10), 0);
-   //l.print();
-   
-   // REMOVE
-   //l.remove_nodo(2);
-   //l.print();
-	
-   // FALTA REVERSE
-   //Lista c = Lista();
-   //l.reverse(); // error loco
-   //l.print();
-   //c.print();
-   
-   return 0;
-}
