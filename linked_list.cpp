@@ -230,7 +230,7 @@ public:
         for(int i = 1; i<size; i++) {
             Nodo* l = getNodo(i-1);
             Nodo* obj = l->getNext();
-            if(obj->getNext() == NULL) {
+            if(obj->getNext() == NULL) { // ultimo elemento
                 obj->setNext(ptr);
                 ptr = obj;
                 l->setNext();
