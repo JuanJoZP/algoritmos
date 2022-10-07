@@ -1,42 +1,56 @@
-// Online C++ compiler to run C++ program online
 #include <iostream>
+#include <string>
+#include <vector>
+#include <tuple>
+using namespace std;
 
-template <typename T>
-class Hash : private Map {
-  pair<int, vector<T> *> *hashMap;
-  int size_h;
+class HashTel {
+  int sid = 0;
+  const static int size_h = 10;
+  vector<tuple<string, string, int>> table = vector<tuple<string, string, int>> (size_h);
 
-  int getCode(T data) { return rand() % size_h; }
+public :
 
-  int findHash(int hash_code)  // devuelve el indice en el que esta el hash
-                               // dentro de hashMap
-      // si no esta entonces lo añade en posicion donde este en orden junto con
-      // el apuntador a un vector vacio y devuelve el indice donde quedo
-
-      public :
-
-      Hash(int size_h)
-      : Map() {
-    hashMap = new pair<int, vector<T> *>[size_h];
-    size_h = size_h;
+  HashTel(const int size) {
   }
-
-  void add_h(T data) {
-    int hash_code = getCode(data);
-    hashMap[findHash(hash_code)].second.push_back(data);
+  
+  int getCode(string data) {
+      string first3 = data.substr(0,3);
+      string last = data.substr(3);
+      
+      int hash = 0;
+      for(int i = 0; i < last.length(); i++ ) {
+          sid = 5;
+          hash = (hash + last[i]) * sid;
+      }
+      
+      return hash % size_h;
   }
+  
+  void addValue(string tel, tuple<string, string, int> data) {
+      int code = getCode(tel);
+      table[code] = data;
+  }
+  
+  void showTable() {
+      for(int i = 0; i < size_h; i++) {
+          cout << "Telefono: " << get<0>(table.at(i)) << endl 
+          << "Nombre: " << get<1>(table.at(i)) << endl 
+          << "Edad: " << get<2>(table.at(i));
+      }
+  }
+  
 };
 
 int main() {
-  // Write C++ code here
-  std::cout << "Hello world!";
-  // pregunta: al rehashear como encuentro nuevamente el elemento
-  //  hasheo una vez y ya esta ocupada, entonces hago rehash y lo ubico en otra
-  //  parte cuando voy a buscar el dato, uso el hash y me encuentro con el dato
-  //  que no es
+    HashTel tel = HashTel(100);
 
-  // si la funcion es irreversible como funcionan los al
-
-  // numeros de telefono
+    tel.addValue("3215700339", tuple<string, string, int>{"3215700339", "Juan Jose", 17});
+    tel.addValue("3216474294", tuple<string, string, int>{"3216474294", "Arnulfo", 23});
+    tel.showTable();
+    
+    // falta el metodo get value 
+    // falta el metodo rehash
+    // falta usar el rehash en add si hay colision
   return 0;
 }
