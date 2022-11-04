@@ -58,21 +58,6 @@ public:
 class Tree {
     Node* root;
     
-    Node* searchLeaf(Node* root, int value) {
-        bool left = root->getData() > value;
-        if(left && !root->hasIzq()) {
-            return root;
-        } else if (!left && !root->hasDer()) {
-            return root;
-        } else {
-            if(left) {
-                return searchLeaf(root->getIzq(), value);
-            } else {
-                return searchLeaf(root->getDer(), value);
-            }
-        }
-    }
-    
 public:
     
     void addr(int d){
@@ -110,6 +95,21 @@ public:
                         } else {
                             pt->setIzq(z);
                         }
+                    } else {
+                        Node *z = t->getIzq();
+                        Node *zd = z->getDer();
+                        Node *pt = parent(t->getData());
+                        
+                        z->setDer(zd->getIzq());
+                        zd->setIzq(z);
+                        t->setIzq(zd->getDer());
+                        zd->setDer(t);
+                        if(pt == NULL) {
+                            root = zd;
+                        } else {
+                            pt->setIzq(zd);
+                        }
+                        // rotacion 2 izq-der
                     }
                 } else if(isDerHeavy(t)) {
                     if(isHijoDer(d)) {
@@ -123,6 +123,8 @@ public:
                         } else {
                             pt->setDer(z);
                         }
+                    } else {
+                        // rotacion 2 der-izq
                     }
                 }
             }
@@ -244,21 +246,15 @@ int main() {
     // Write C++ code here
     Tree tree = Tree();
     
-    tree.addr(20);
     tree.addr(15);
-    tree.addr(24);
     tree.addr(10);
-    tree.addr(22);
-    tree.addr(31);
-    tree.addr(18);
-    tree.addr(11);
-    tree.addr(7);
-
+    tree.addr(20);
+    tree.addr(5);
+  
     tree.preorder();
     cout << endl;
     
-    tree.addr(40);
-    tree.addr(50);
+    tree.addr(8);
     
     tree.preorder();
     cout << endl;
